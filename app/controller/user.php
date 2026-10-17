@@ -13,13 +13,15 @@ class User {
     use \App\traits\Authorize;
     private $model;
     private $userService;
-    //private $reqType;
+    private $reqType;
 
-    public function __construct( $reqInfo ) {
+    public function __construct() {
         //parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
-        $this->reqType = $this->reqInfo[0];
+        //$this->reqType = $this->reqInfo[0];
         //try {
             $this->model = new \App\model\User;
+            $this->reqType = $GLOBALS['AppObj']->requestType;
+
         // } catch( \Exception $e ) {
         //     $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
         //     return;

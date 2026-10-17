@@ -10,7 +10,7 @@ trait Authorize
     public $mPayload;
     // JWT - put in config file or ENV TODO
     public $secretKey = 'e6311e81b59543c8aae070c54a28b801'; // TODO
-    public $reqType;
+    public $requestType;
    // public $IsHalted = false;
 
     // public function setReqType( $rType ) {
@@ -78,11 +78,7 @@ trait Authorize
     }
 
     public function AuthUI() {
-        //switch( $this->reqType ) {
-        //switch( $GLOBALS['AppObj']->_ReqType ) {
-            // TODO
-            $temp = $GLOBALS['ReqType'];
-        switch( $GLOBALS['ReqType'] ) {
+        switch( $GLOBALS['AppObj']->requestType ) {
             case GET:
                 $token = $_GET['jwt'];
                 break;

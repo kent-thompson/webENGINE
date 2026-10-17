@@ -22,24 +22,20 @@ const POST = 2;
 
 require_once CORE . 'Application.php';
 
-function exceptionHandler(Throwable $ex) {
-    $GLOBALS['IsHalted'] = true;
-    require_once SERVICE . 'ErrorHandler.php';
-    \App\service\showErrorEx( $ex );
-    exit();
+function ktcExceptionHandler( Throwable $e) {
+    //$GLOBALS['IsHalted'] = true;
+    echo 'Message: ' .  $e->getMessage();
 }
-set_exception_handler('exceptionHandler');
+set_exception_handler('ktcExceptionHandler');
 
 
-function errorHandler( $errno, $errstr, $errfile, $errline ) {
-    $GLOBALS['IsHalted'] = true;
-    require_once SERVICE . 'ErrorHandler.php';
-    \App\service\showErrorOG( $errno, $errstr, $errfile, $errline );
-    exit();
+function ktcErrorHandler( $errno, $errstr, $errfile, $errline ) {
+    //$GLOBALS['IsHalted'] = true;
+    echo 'Error ' . 'Number:' . $errno . ' Reason: ' . $errstr . ' File: ' . $errfile . ' Line: ' . $errline;
 }
-set_error_handler('errorHandler');
+set_error_handler('ktcErrorHandler');
 
-$GLOBALS['IsHalted'] = false;
+//$GLOBALS['IsHalted'] = false;
 
 $App = new App\core\Application;
 $App->run();

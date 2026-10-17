@@ -11,10 +11,13 @@ require_once TRAITS . 'Authorize.php';
     use \App\traits\Authorize;
     private $model;
     private $userService;
+    //private $reqType;
 
 
-    public function __construct( $reqInfo ) {
-        $this->reqType = $reqInfo[0];
+    // public function __construct( $reqInfo ) {
+    public function __construct() {
+        $this->reqType = $GLOBALS['AppObj']->requestType;
+        //$this->reqType = $reqInfo[0];
 
         // if EXECEPTION is thrown it's caught in index ON PURPOSE :)
         $this->model = new \App\model\User;

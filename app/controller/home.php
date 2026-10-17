@@ -9,8 +9,9 @@ require_once TRAITS . 'Authorize.php';
     class Home {
         use \App\traits\Authorize;  // also has reqType
 
-    public function __construct( $reqInfo ) {
-        $this->reqType = $reqInfo[0];   // $reqInfo[0] is reqType
+    //public function __construct( $reqInfo ) {
+    public function __construct() {
+        //$this->reqType = $reqInfo[0];   // $reqInfo[0] is reqType
     }
 
     public function index() {
