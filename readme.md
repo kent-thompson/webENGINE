@@ -1,6 +1,8 @@
 webENGINE: A High-Performance MVC/S Web Server / Web Engine / 'Framework' for Web Applications
 ------------
-Features
+*Copyright (c) 2024 - 2027 Kent Thompson, All rights reserved.*
+
+***Features***
 + Convention Over Configuration
 + MVC/S Architecture
 + Object Oriented, High Performance, Efficient Algorithms
@@ -64,28 +66,27 @@ SQL or NoSQL Database
   PDO Interface is provided, any supporting DB will work, setup in app/core/Database and app/model
 
 + Recommended:
-Datatables.js,
-jQuery.js,
-Bootstrap
+Datatables.js, jQuery.js, Bootstrap, "HTML Tag Error Checker" Browser Extension
 
 Authentication and Authorization
 ----
-Built in behavior located in a Base Class called ControllerBase.php. Controllers should inherit (extends) ControllerBase.php located in app/core/.
+Built in behavior is located in a PHP Trait called ***Authorize.php***. Controllers, and any class needing it should add the following line:
+ >use \App\traits\Authorize;
 
 Authentication: Handled by the PHP Password Hashing Functions
 
 Authorization (as opposed to Authentication)  
 JsonWebTokens are used for these features.  
 It is not needlessly "enforced."  
-If Authorization is desired, in Server side controllers, use '**parent::AuthUI()**' for webpages and '**parent::AuthApi()**' for API calls.  
+If Authorization is desired, in Server side controllers, use '**$this->AuthUI();**' for webpages and '**$this->AuthApi()**' for API calls. They return a boolean.
  See /app/controller/home and app/api/user for examples.
 
 Authentication Before Login:
-+ GET and POST do not use Authentication or Authorization becuase a JsonWebToken (JWT) has not been issued. This is by design. Static pages, for example, usually do not need authorized as well, but can be if desired, with one line of code.
++ GET and POST do not use Authentication or Authorization becuase a JsonWebToken (JWT) has not been issued. This is by design. Static pages, for example, usually do not need to be authorized as well, but can be if desired, with one line of code.
 
 Login: (Authentication)
 + One has to register as a user first, of course.
-+ Once Authenticated (logged in) a JsonWebToken is issued.
++ Once Authenticated (logged in) a JsonWebToken is issued and installed in the client browser.
 + Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in  client side SessionStorage, (/app/views/login). This has to be done.
 
 After Login:
@@ -98,12 +99,12 @@ Request (Get / Post) based "Routing"
 No Need For Seperate Methods for Each Http / REST Verb. Employs the DRY principle.  
 Inside a controller mapped method use this technique:
 ```c++
-    if( $this->reqType === GET ) {
+    if( $this->requestType === GET ) {
         $id = $_GET['id'];
         $uname = $_GET['uname'];
     }
 
-    if( $this->reqType === POST ) {
+    if( $this->requestType === POST ) {
         $id = $_POST['id'];
         $uname = $_POST['uname'];
     }
@@ -143,5 +144,5 @@ Finish full coverage of new error handler code
 
 ---
 
-Copyright (c) 2024 Kent Thompson, All rights reserved.  
+Copyright (c) 2024 - 2027 Kent Thompson, All rights reserved.
 https://github.com/kent-thompson/webMVC.git
