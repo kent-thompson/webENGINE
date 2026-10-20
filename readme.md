@@ -71,11 +71,12 @@ Datatables.js, jQuery.js, Bootstrap, "HTML Tag Error Checker" Browser Extension
 Authentication and Authorization
 ----
 Built in behavior is located in a PHP Trait called ***Authorize.php***. Controllers, and any class needing it should add the following line:
- >use \App\traits\Authorize;
 
-Authentication: Handled by the PHP Password Hashing Functions
+<code>use \App\traits\Authorize;</code>
 
-Authorization (as opposed to Authentication)  
+**Authentication**: Handled by the PHP Password Hashing Functions
+
+**Authorization**: (as opposed to Authentication)  
 JsonWebTokens are used for these features.  
 It is not needlessly "enforced."  
 If Authorization is desired, in Server side controllers, use '**$this->AuthUI();**' for webpages and '**$this->AuthApi()**' for API calls. They return a boolean.
@@ -96,7 +97,7 @@ After Login:
 
 Request (Get / Post) based "Routing"
 ----
-No Need For Seperate Methods for Each Http / REST Verb. Employs the DRY principle.  
+No Need For Seperate Methods for Each HTTP Verb. Employs the DRY principle.  
 Inside a controller mapped method use this technique:
 ```c++
     if( $this->requestType === GET ) {
