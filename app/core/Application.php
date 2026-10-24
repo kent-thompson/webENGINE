@@ -25,13 +25,13 @@ class Application {
 
         } catch( \ErrorException $er ) {
             $result = false;
-            $this->throwProblem( 'ErrorEx: ' . $er->getMessage(), $er->getFile(), $er->getLine() ); 
+            $this->showProblem( 'ErrorEx: ' . $er->getMessage(), $er->getFile(), $er->getLine() ); 
         } catch( \Exception $e ) {
             $result = false;
-            $this->throwProblem( 'Exception: ' . $e->getMessage(), $e->getFile(), $e->getLine() ); 
+            $this->showProblem( 'Exception: ' . $e->getMessage(), $e->getFile(), $e->getLine() ); 
         } catch( \Error $err ) {
             $result = false;
-            $this->throwProblem( 'Error: ' . $err->getMessage(), '', '' ); 
+            $this->showProblem( 'Error: ' . $err->getMessage(), '', '' ); 
         }
         return $result;
     }
@@ -102,7 +102,7 @@ class Application {
             $this->controller->reqType = $this->requestType;
 
         } else {
-            $this->throwProblem( 'Error: Controller ' . $this->controller . ' Missing', __FILE__, __LINE__ );
+            $this->showProblem( 'Error: Controller ' . $this->controller . ' Missing', __FILE__, __LINE__ );
             return false;
         }
     
@@ -116,15 +116,17 @@ class Application {
                     $this->controller->$gAction();    // The MAGIC - extreamly fast
             } else { // error
                 $classObj = new \ReflectionClass( $this->controller );
-                $tmsg = $classObj->getName() . '\\' . $gAction . ' Function Missing File: ' .  __FILE__. ' Line: ' . __LINE__;
-                throw new \ErrorException( $tmsg );
+                $msg = 'Error: Controller ' . $classObj->getName();
+                $this->showProblem( $msg . ' File Missing', __FILE__, __LINE__ );
                 return false;
             }
     } //invoke
 
-
-    public function throwProblem( $msg, $file, $line ) {
-        $tmsg = $msg . '<br>' . 'FILE: ' . $file . '<br>' . 'LINE: ' . $line . '<br>' . 'Press BACK Button' ; 
-        throw new \ErrorException(  $tmsg );
+    public function showProblem( $msg, $file, $line ) {
+        $GLOBALS['error_data'] = $msg;
+        $GLOBALS['error_file'] = $file;
+        $GLOBALS['error_line'] =  $line;
+        require_once VIEWS . '404.php';
+        //throw new \ErrorException(  $tmsg );
     }
 }

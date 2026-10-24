@@ -13,7 +13,7 @@ const API = APP . 'api' . DS;
 const TRAITS = APP . 'traits' . DS;
 const GLOSSY = ROOT . 'glossy2'. DS;
 
-// can add any number of other REST Request types like PUT, DELETE etc
+// can add any number of other HTTP Request types like PUT, DELETE etc
 const GET = 1;
 const POST = 2;
 
@@ -23,19 +23,20 @@ const POST = 2;
 require_once CORE . 'Application.php';
 
 function ktcExceptionHandler( Throwable $e) {
-    //$GLOBALS['IsHalted'] = true;
-    echo 'Message: ' .  $e->getMessage();
+    $GLOBALS['error_data'] = 'Uncaught Exception: ' . $e->getMessage();
+    $GLOBALS['error_file'] = $e->getFile();
+    $GLOBALS['error_line'] = $e->getLine();
+    require_once VIEWS . '404.php';
 }
 set_exception_handler('ktcExceptionHandler');
 
-
 function ktcErrorHandler( $errno, $errstr, $errfile, $errline ) {
-    //$GLOBALS['IsHalted'] = true;
-    echo 'Error ' . 'Number:' . $errno . ' Reason: ' . $errstr . ' File: ' . $errfile . ' Line: ' . $errline;
+    $GLOBALS['error_data'] = 'Uncaught ERROR: ' . $errstr;
+    $GLOBALS['error_file'] = $errfile;
+    $GLOBALS['error_line'] = $errline;
+    require_once VIEWS . '404.php';
 }
 set_error_handler('ktcErrorHandler');
-
-//$GLOBALS['IsHalted'] = false;
 
 $App = new App\core\Application;
 $App->run();
