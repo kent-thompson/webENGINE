@@ -38,5 +38,4 @@ function ktcErrorHandler( $errno, $errstr, $errfile, $errline ) {
 }
 set_error_handler('ktcErrorHandler');
 
-$App = new App\core\Application;
-$App->run();
+(new App\core\Application())->run();

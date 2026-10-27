@@ -127,6 +127,5 @@ class Application {
         $GLOBALS['error_file'] = $file;
         $GLOBALS['error_line'] =  $line;
         require_once VIEWS . '404.php';
-        //throw new \ErrorException(  $tmsg );
     }
 }
